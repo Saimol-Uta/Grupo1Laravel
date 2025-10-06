@@ -119,22 +119,22 @@ class RegistroDeCursoController extends Controller
         ]);
 
         $alumno = Alumnos::where('CEDULA', $request->cedula)->first();
-        $registros = RegistroDeCurso::with('alumno')->get();
-        $alumnos = Alumnos::all();
 
         if ($alumno) {
             $cursosAlumno = RegistroDeCurso::where('CEDULA', $request->cedula)->get();
             
             if ($cursosAlumno->count() > 0) {
                 $listaCursos = $cursosAlumno->pluck('nombre')->implode(', ');
-                return view('RegistroDeCurso.index', compact('registros', 'alumnos', 'alumno', 'cursosAlumno'))
-                    ->with('info', "El alumno {$alumno->NOMBRE} {$alumno->APELLIDO} está inscrito en: {$listaCursos}");
+                return redirect()->route('RegistroDeCurso.index')
+                    ->with('cursosAlumno', $cursosAlumno)
+                    ->with('alumno', $alumno);
+                  
             } else {
-                return view('RegistroDeCurso.index', compact('registros', 'alumnos'))
+                return redirect()->route('RegistroDeCurso.index')
                     ->with('warning', 'El alumno no está registrado en ningún curso.');
             }
         } else {
-            return view('RegistroDeCurso.index', compact('registros', 'alumnos'))
+            return redirect()->route('RegistroDeCurso.index')
                 ->with('warning', 'No se encontró el alumno con esa cédula.');
         }
     }

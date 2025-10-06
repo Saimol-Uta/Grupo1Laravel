@@ -88,6 +88,30 @@
       </form>
     </div>
   </div>
+
+  <!-- Tabla de resultados de búsqueda -->
+  @if(session('cursosAlumno') && session('cursosAlumno')->count() > 0)
+  <div class="mt-4">
+    <h4>Resultados de la Búsqueda</h4>
+    
+    <table class="table table-bordered table-striped">
+      <thead class="table-primary">
+        <tr>
+          <th>Curso</th>
+          <th>Nombre del Estudiante</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach(session('cursosAlumno') as $curso)
+        <tr>
+          <td>{{ $curso->nombre }}</td>
+          <td>{{ session('alumno')->NOMBRE }} {{ session('alumno')->APELLIDO }}</td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+  @endif
 </div>
 
 @endsection
