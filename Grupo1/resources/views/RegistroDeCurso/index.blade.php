@@ -67,42 +67,6 @@
   </table>
 
   <hr class="my-4">
-
-  <!-- Sección para registrar alumno en curso -->
-  <h3>Registrar Alumno en Curso</h3>
-  <div class="card mb-4">
-    <div class="card-body">
-      <form action="{{ route('RegistroDeCurso.registrar') }}" method="POST">
-        @csrf
-        <div class="row">
-          <div class="col-md-5">
-            <div class="form-group">
-              <label for="nombre">Nombre del Curso</label>
-              <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ej: Matemáticas" required>
-            </div>
-          </div>
-          <div class="col-md-5">
-            <div class="form-group">
-              <label for="CEDULA">Seleccionar Alumno</label>
-              <select name="CEDULA" id="CEDULA" class="form-control" required>
-                <option value="">-- Seleccione un alumno --</option>
-                @foreach($alumnos as $alumno)
-                  <option value="{{$alumno->CEDULA}}">{{$alumno->CEDULA}} - {{$alumno->NOMBRE}} {{$alumno->APELLIDO}}</option>
-                @endforeach
-              </select>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <label>&nbsp;</label>
-            <button type="submit" class="btn btn-primary form-control">Registrar en Curso</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <hr class="my-4">
-
   <!-- Sección para buscar alumno por cédula -->
   <h3>Buscar Cursos de Alumno</h3>
   <div class="card">

@@ -17,7 +17,7 @@
     @csrf 
     <div class="form-group mb-3">
       <label for="nombre">Nombre del Curso</label>
-      <input type="text" class="form-control" name="nombre" id="nombre" value="{{ old('nombre') }}" placeholder="Ej: Matemáticas, Física, Historia..." required>
+      <input type="text" class="form-control" name="nombre" id="nombre" value="{{ old('nombre') }}" placeholder="Ingrese el nombre del curso" required>
     </div>
     <div class="form-group mb-3">
       <label for="CEDULA">Seleccionar Alumno</label>
@@ -25,7 +25,7 @@
         <option value="">-- Seleccione un alumno --</option>
         @foreach($alumnos as $alumno)
           <option value="{{$alumno->CEDULA}}" {{ old('CEDULA') == $alumno->CEDULA ? 'selected' : '' }}>
-            {{$alumno->CEDULA}} - {{$alumno->NOMBRE}} {{$alumno->APELLIDO}}
+           {{$alumno->NOMBRE}} {{$alumno->APELLIDO}}
           </option>
         @endforeach
       </select>
