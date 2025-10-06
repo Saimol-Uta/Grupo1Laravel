@@ -14,7 +14,7 @@ class AlumnosController extends Controller
      */
     public function index()
     {
-        $alumnos = Alumnos::all();
+        $alumnos = Alumnos::with('registrosDeCurso')->get();
         return view('Alumnos.index', compact('alumnos'));
     }
 
@@ -40,7 +40,9 @@ class AlumnosController extends Controller
                 'TELEFONO' => 'required'
             ]
         );
+        
         Alumnos::create($request->all());
+        
         return redirect()->route('Alumnos.index')
             ->with('success', 'Alumno creado exitosamente.');
     }
@@ -74,8 +76,10 @@ class AlumnosController extends Controller
             'DIRECCION' => 'required',
             'TELEFONO' => 'required',
         ]);
+        
         $alumno = Alumnos::findOrFail($id);
         $alumno->update($request->all());
+        
         return redirect()->route('Alumnos.index')
             ->with('success', 'Alumno actualizado exitosamente.');
     }

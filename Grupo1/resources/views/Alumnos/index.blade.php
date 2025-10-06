@@ -4,10 +4,11 @@
 <div class="container mt-4">
   <h1>Listado de alumnos</h1>
   <a href="{{route('Alumnos.create')}}" class="btn btn-success">Nuevo Alumno</a>
+    <a href="{{route('RegistroDeCurso.index')}}" class="btn btn-info">Gestión de Registro de Cursos</a>
   @if(session('success'))
   <div class="alert alert-success"> {{ session('success') }} </div>
   @endif
-  <table class="table table-bordered">
+  <table class="table table-bordered mt-3">
     <thead>
       <tr>
         <th>CEDULA</th>

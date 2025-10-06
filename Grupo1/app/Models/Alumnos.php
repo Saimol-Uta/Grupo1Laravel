@@ -16,4 +16,12 @@ class Alumnos extends Model
 
     protected $fillable = ['CEDULA', 'NOMBRE', 'APELLIDO', 'DIRECCION', 'TELEFONO'];
 
+    /**
+     * Relación uno a muchos con RegistroDeCurso
+     * Un alumno puede tener muchos registros de curso
+     */
+    public function registrosDeCurso()
+    {
+        return $this->hasMany(RegistroDeCurso::class, 'CEDULA', 'CEDULA');
+    }
 }
