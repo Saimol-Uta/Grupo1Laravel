@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Alumnos;
+
 
 use Illuminate\Http\Request;
 
@@ -21,7 +23,7 @@ class AlumnosController extends Controller
      */
     public function create()
     {
-        
+        return view('Alumnos.create');
     }
 
     /**
@@ -29,7 +31,18 @@ class AlumnosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'CEDULA' => 'required | unique:alumnos',
+                'NOMBRE' => 'required',
+                'APELLIDO' => 'required',
+                'DIRECCION' => 'required',
+                'TELEFONO' => 'required'
+            ]
+        );
+        Alumnos::create($request->all());
+        return redirect()->route('Alumnos.index')
+            ->with('success', 'Alumno creado exitosamente.');
     }
 
     /**
@@ -45,7 +58,8 @@ class AlumnosController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $alumno = Alumnos::findOrFail($id);
+        return view('Alumnos.edit', compact('alumno'));
     }
 
     /**
@@ -53,7 +67,17 @@ class AlumnosController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'CEDULA' => 'required|unique:alumnos,CEDULA,' . $id . ',CEDULA',
+            'NOMBRE' => 'required',
+            'APELLIDO' => 'required',
+            'DIRECCION' => 'required',
+            'TELEFONO' => 'required',
+        ]);
+        $alumno = Alumnos::findOrFail($id);
+        $alumno->update($request->all());
+        return redirect()->route('Alumnos.index')
+            ->with('success', 'Alumno actualizado exitosamente.');
     }
 
     /**
@@ -61,6 +85,9 @@ class AlumnosController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $alumno = Alumnos::findOrFail($id);
+        $alumno->delete();
+        return redirect()->route('Alumnos.index')
+            ->with('success', 'Alumno eliminado exitosamente.');
     }
 }
